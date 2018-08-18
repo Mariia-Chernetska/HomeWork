@@ -1,4 +1,4 @@
-﻿// 'use strict';
+// 'use strict';
 // function power (prop){
 //     return prop**2;
 // };
@@ -7,7 +7,7 @@
 // a = 5;
 // const b = 5;
 
-//HELLO WORD
+
 
 
 // const name = 'Mango';
