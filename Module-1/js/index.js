@@ -99,69 +99,69 @@
 
 
 // //task 1 check login
-// if(userLogin === adminLogin){ // this is good
-//     //task 2
-//     const userPassword = prompt('Enter the password');
-//     if(adminPassword === userPassword){ // this is good
-//             alert(messageThird);
-//     } else { //this is not good
-//         if (!userPassword){
-//             alert(messageFirst);
-//           } else {
-//            alert(messageSecond);
-//           }
-//     }
-// } else { //this is not good
-//     if (!userLogin){
-//         alert(messageFirst);
-//       } else {
-//         alert(messageSecond);
-//       }
-// }
+if(userLogin === adminLogin){ // this is good
+    //task 2
+    const userPassword = prompt('Enter the password');
+    if(adminPassword === userPassword){ // this is good
+            alert(messageThird);
+    } else { //this is not good
+        if (!userPassword){
+            alert(messageFirst);
+          } else {
+           alert(messageSecond);
+          }
+    }
+} else { //this is not good
+    if (!userLogin){
+        alert(messageFirst);
+      } else {
+        alert(messageSecond);
+      }
+}
 
-// if (userLogin === adminLogin){
-//      const  userPassword = prompt('Введите Ваш пароль!');
-//          if (adminPassword === userPassword){
-//              alert(message3);
-//         } 
-//          if (!userPassword){
-//           alert(message1);
-//         } else {
-//          alert(message2);
-//         }
-// }
-// if (!userLogin){
-//     alert(message1);
-//   } else {
-//     alert(message2);
-//   }
+if (userLogin === adminLogin){
+     const  userPassword = prompt('Введите Ваш пароль!');
+         if (adminPassword === userPassword){
+             alert(message3);
+        } 
+         if (!userPassword){
+          alert(message1);
+        } else {
+         alert(message2);
+        }
+}
+if (!userLogin){
+    alert(message1);
+  } else {
+    alert(message2);
+  }
 
 // ==========================================================================
 
 // number1 < x < number2
 
 
-const groupSharm = 15;
-const groupHurgada = 25;
-const groupTaba = 6;
+// const groupSharm = 15;
+// const groupHurgada = 25;
+// const groupTaba = 6;
 
-const numberPax = prompt('Введите Количество мест!');
-if(!Number(numberPax)){
-    alert ('Ошибка ввода!');
-}
-else{
-  if(numberPax <= groupTaba && numberPax > 0 ){
-     TABA
-     }
-     else if(numberPax <= groupTaba && numberPax > 0 ){
-       const correctNumberPax = confirm ('У нас есть место  в этой группе, согласны ли Вы быть в этой группе?'); 
-      }
-      else if (correctNumberPax = 'да'){
-            alert ('Приятного путешествия в группе Taba');
-     } else if (correctNumberPax = 'нет'){
-             alert ('Нам очень жаль, приходите еще!');
-         }
-     }
+// const numberPax = prompt('Введите Количество мест!');
+// if(!Number(numberPax)){
+//     alert ('Ошибка ввода!');
+// }
+// else{
+//   if(numberPax <= groupTaba && numberPax > 0 ){
+//      TABA
+//      }
+//      else if(numberPax <= groupTaba && numberPax > 0 ){
+//        const correctNumberPax = confirm ('У нас есть место  в этой группе, согласны ли Вы быть в этой группе?'); 
+//       }
+//       else if (correctNumberPax = 'да'){
+//             alert ('Приятного путешествия в группе Taba');
+//      } else if (correctNumberPax = 'нет'){
+//              alert ('Нам очень жаль, приходите еще!');
+//          }
+//      }
        
-}
+// }
 
