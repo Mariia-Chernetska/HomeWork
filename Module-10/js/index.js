@@ -41,7 +41,8 @@ function getUserById(id) {
     .then(response => response.json())
     .then(data => {
       tBody.innerHTML = createTableRow(data.data);
-    });
+    })
+    .catch(error => alert(error));
 }
 
 //---------------------------------------------------------------------------------------
@@ -56,8 +57,14 @@ function addUser(name, age) {
     }
   })
     .then(res => res.json())
-    .then(data => console.log(data))
-    .catch(error => console.log(error));
+    .then(data => {
+      if(data.status != 200){
+       alert (data.errors);
+      }
+      console.log(data);
+
+    })
+    .catch(error => alert(error));
 }
 
 //---------------------------------------------------------------------------------------
@@ -66,8 +73,14 @@ function removeUser(id) {
     method: "delete"
   })
     .then(res => res.json())
-    .then(data => console.log(data))
-    .catch(error => console.log(error));
+    .then(data => {
+      if(data.status != 200){
+       alert (data.errors);
+      }
+      console.log(data);
+
+    })
+    .catch(error => alert(error));
 }
 
 //---------------------------------------------------------------------------------------
@@ -81,7 +94,7 @@ function updateUser(id, user) {
   })
     .then(res => res.json())
     .then(data => console.log(data))
-    .catch(error => console.log(error));
+    .catch(error => alert(error));
 }
 //---------------------------------------------------------------------------------------
 
