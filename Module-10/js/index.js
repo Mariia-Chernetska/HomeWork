@@ -1,20 +1,31 @@
 "use strict";
 
-let get = document.querySelector("#get");
-let post = document.querySelector("#post");
-let del = document.querySelector("#delete");
 let input_id = document.querySelector("#input_id");
-let btnGetUserId = document.querySelector("#getUserById");
 let input_name = document.querySelector("#input_name");
 let input_age = document.querySelector("#input_age");
 
+let radioDelete = document.querySelector("#delete");
+let radioPost = document.querySelector("#post");
+let radioAllUser = document.querySelector("#allusers");
+let radioGet = document.querySelector("#get");
+
+let panel_radiobuttons = document.querySelector("#radiobuttons");
+let radiobuttons = [...panel_radiobuttons.querySelectorAll("input")];
+let excute = document.querySelector("#btnexcute");
+const tableData = document.querySelector("table");
 const tBody = document.querySelector("table > tbody");
 
-//----------------------------------GET ALL USERS BEGIN-------------------------------------
 function getAllUsers() {
   fetch("https://test-users-api.herokuapp.com/users/")
     .then(response => response.json())
-    .then(data_json => updateView([...data_json.data]));
+    .then(data_json => {
+      if (data_json.status != 200) {
+        alert(data_json.errors);
+      } else {
+        tableData.hidden = false;
+        updateView([...data_json.data]);
+      }
+    });
 }
 
 function createTableRow({ id, name, age }) {
@@ -34,35 +45,50 @@ function updateView(users) {
   );
   tBody.innerHTML = htmlString;
 }
-//----------------------------------GET ALL USERS END-------------------------------------
 
+//--------------------------------------------------------------------------------------
 function getUserById(id) {
+  let res = false;
+
   fetch(`https://test-users-api.herokuapp.com/users/${id}`)
     .then(response => response.json())
     .then(data => {
-      tBody.innerHTML = createTableRow(data.data);
+      if (data.status != 200) {
+        alert(data.errors);
+      } else {
+        tableData.hidden = false;
+        tBody.innerHTML = createTableRow(data.data);
+      }
     })
-    .catch(error => alert(error));
+    .catch(error => {
+      res = true;
+      alert(error);
+    });
+
+  return res;
 }
 
-//---------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------
 
 function addUser(name, age) {
   fetch(" https://test-users-api.herokuapp.com/users/", {
     method: "post",
     body: JSON.stringify({ name: `${name}`, age: `${age}` }),
-    // body: JSON.stringify({ name: name, age: age}),
     headers: {
       "Content-Type": " application/json"
     }
   })
     .then(res => res.json())
     .then(data => {
-      if(data.status != 200){
-       alert (data.errors);
+      if (data.status != 200 && data.status != 201) {
+        alert(data.errors);
+      } else {
+        setTimeout(getAllUsers, 1000);
+        input_age.value = "";
+        input_name.value = "";
+        tableData.hidden = false;
+        console.log(data);
       }
-      console.log(data);
-
     })
     .catch(error => alert(error));
 }
@@ -74,13 +100,19 @@ function removeUser(id) {
   })
     .then(res => res.json())
     .then(data => {
-      if(data.status != 200){
-       alert (data.errors);
-      }
-      console.log(data);
+      if (data.status != 200) {
+        alert(data.errors);
+      } else {
+        setTimeout(getAllUsers, 1000);
+        input_id.value = "";
+        tableData.hidden = false;
 
+        console.log(data);
+      }
     })
-    .catch(error => alert(error));
+    .catch(error => {
+      alert(error);
+    });
 }
 
 //---------------------------------------------------------------------------------------
@@ -99,39 +131,85 @@ function updateUser(id, user) {
 //---------------------------------------------------------------------------------------
 
 function onButtonClick(event) {
-  switch (event.target.getAttribute("id")) {
-    case "get": {
+  let radioChecked = radiobuttons.find(_ => _.checked);
+
+  switch (radioChecked.getAttribute("id")) {
+    case "allusers": {
       getAllUsers();
       console.log("get");
       break;
     }
     case "post": {
       addUser(input_name.value, input_age.value);
-      setTimeout(getAllUsers, 1000);
-      input_age.value = '';
-      input_name.value = '';
       console.log("post");
       break;
     }
     case "delete": {
       removeUser(input_id.value);
-      setTimeout(getAllUsers, 1000);
-      input_id.value = '';
       console.log("delete");
       break;
     }
-    case "getUserById": {
+    case "get": {
       getUserById(input_id.value);
       console.log("getUserById");
-      input_id.value = '';
+      input_id.value = "";
       break;
     }
   }
 }
 
-get.addEventListener("click", onButtonClick);
-post.addEventListener("click", onButtonClick);
-del.addEventListener("click", onButtonClick);
-btnGetUserId.addEventListener("click", onButtonClick);
+//-------------FOR GUI--------------------
+function disabledFromRadioChecked(event) {
+  switch (event.target.getAttribute("id")) {
+    case "allusers": {
+      tableData.hidden = true;
+      input_age.value = "";
+      input_name.value = "";
+      input_id.value = "";
+      input_age.disabled = true;
+      input_name.disabled = true;
+      input_id.disabled = true;
+      break;
+    }
+    case "post": {
+      tableData.hidden = true;
+      input_age.value = "";
+      input_name.value = "";
+      input_id.value = "";
+      input_age.disabled = false;
+      input_name.disabled = false;
+      input_id.disabled = true;
+      break;
+    }
+    case "delete": {
+      tableData.hidden = true;
+      input_age.value = "";
+      input_name.value = "";
+      input_id.value = "";
+      input_age.disabled = true;
+      input_name.disabled = true;
+      input_id.disabled = false;
+      break;
+    }
+    case "get": {
+      tableData.hidden = true;
+      input_age.value = "";
+      input_name.value = "";
+      input_id.value = "";
+      input_age.disabled = true;
+      input_name.disabled = true;
+      input_id.disabled = false;
+      break;
+    }
+  }
+}
+//----------------------------------------
+
+radioAllUser.addEventListener("change", disabledFromRadioChecked);
+radioDelete.addEventListener("change", disabledFromRadioChecked);
+radioGet.addEventListener("change", disabledFromRadioChecked);
+radioPost.addEventListener("change", disabledFromRadioChecked);
+
+excute.addEventListener("click", onButtonClick);
 
 //==========================================================================================

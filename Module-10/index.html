@@ -9,25 +9,35 @@
 </head>
 
 <body>
+    <div id = "radiobuttons">
+            <label class="container">GET
+              <input type="radio" id="get" checked="checked" name="radio">
+              <span class="checkmark"></span>
+            </label>
+            <label class="container">POST
+              <input type="radio" id="post" name="radio">
+              <span class="checkmark"></span>
+            </label>
+            <label class="container">DELETE
+              <input type="radio" id="delete" name="radio">
+              <span class="checkmark"></span>
+            </label>
+            <label class="container">ALL USERS
+              <input type="radio" id="allusers" name="radio" checked>
+              <span class="checkmark"></span>
+            </label>
+      <button id="btnexcute">Excute</button>
+    </div>
 
-    <header id="header">
-
-        <div class="buttons">
-            <button id="get">Get</button>
-            <button id="post">Post</button>
-            <button id="delete">Delete</button>
-            <button id = "getUserById">getUserByID</button>
-         </div>
 
         <div class="container1">
             <div class="input_inf">
-                <input id="input_id" placeholder="id">
-                <input id="input_name" placeholder="name">
-                <input type="number" id="input_age" placeholder="age">
+                <input id="input_id" placeholder="id" required disabled>
+                <input id="input_name" placeholder="name" required disabled>
+                <input type="number" id="input_age" required placeholder="age" disabled>
             </div>
-            <h2>All Users</h2>
             <div id="table-scroll">
-                <table class="centered bordered highlight">
+                <table class="centered bordered highlight" hidden>
                     <thead>
                         <tr>
                             <th >Id</th>
